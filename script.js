@@ -29,3 +29,21 @@ link3.addEventListener('click', () => {
 link4.addEventListener('click', () => {
     scrollToElement('.column');
 });
+const backToTopBtn = document.getElementById("backToTop");
+
+// Show button after scrolling down
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    backToTopBtn.style.display = "flex";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+});
+
+// Smooth scroll to top when clicked
+backToTopBtn.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
