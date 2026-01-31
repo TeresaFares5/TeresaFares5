@@ -349,11 +349,14 @@ section .header {
     justify-content: center;
     font-size: 1.5rem;
     z-index: 999;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
-.back-to-top:hover {
-    background-color: #3f105c;
+
+@media (hover: hover) and (pointer: fine) {
+    .back-to-top:hover {
+        background-color: #3f105c;
+    }
 }
 
 html {
