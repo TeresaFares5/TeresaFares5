@@ -85,9 +85,10 @@ if (viewport && track) {
   // Apply "active" class to center card
   // --------------------------------
   function setActiveCard(index) {
-    cards.forEach((c) => c.classList.remove("is-active"));
-    if (cards[index]) cards[index].classList.add("is-active");
-  }
+  cards.forEach((c) => c.classList.remove("is-active"));
+  if (cards[index]) cards[index].classList.add("is-active");
+  setActiveDot(index);
+}
 
   // --------------------------------
   // Scroll viewport so selected card
@@ -152,6 +153,28 @@ if (viewport && track) {
       scrollToCard(Math.min(cards.length - 1, idx + 1));
     });
   }
+
+  const dotsWrap = document.getElementById("projectsDots");
+
+// Build dots
+if (dotsWrap) {
+  dotsWrap.innerHTML = ""; // reset if hot reload
+  cards.forEach((_, i) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "carousel-dot";
+    dot.setAttribute("aria-label", `Go to project ${i + 1}`);
+    dot.addEventListener("click", () => scrollToCard(i));
+    dotsWrap.appendChild(dot);
+  });
+}
+
+function setActiveDot(index) {
+  if (!dotsWrap) return;
+  const dots = Array.from(dotsWrap.querySelectorAll(".carousel-dot"));
+  dots.forEach((d) => d.classList.remove("is-active"));
+  if (dots[index]) dots[index].classList.add("is-active");
+}
 
   // --------------------------------
   // Keyboard navigation support
