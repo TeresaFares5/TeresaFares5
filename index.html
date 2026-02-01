@@ -1,110 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css">
-  <link rel="stylesheet" href="stylesheet.css">
-  <link rel="icon" type="image/x-con" href="images/logo.png">
+  <!-- Character encoding -->
+  <meta charset="UTF-8" />
+
+  <!-- Responsive scaling for mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Remix Icon CDN (icons used in buttons / checklist lines) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css" />
+
+  <!-- Your site CSS -->
+  <link rel="stylesheet" href="stylesheet.css" />
+
+  <!-- Browser tab icon -->
+  <link rel="icon" type="image/x-icon" href="images/logo.png" />
+
+  <!-- Page title (tab text) -->
   <title>Teresa Fares</title>
 </head>
 
 <body>
 
+  <!-- Top navigation bar -->
   <nav>
+    <!-- Logo area: clicking returns to the home/hero section -->
     <div class="nav-logo">
       <a href="#home">
-        <img src="images/logo.png">
+        <img src="images/logo.png" alt="Logo" />
       </a>
     </div>
 
-    <ul id="home" class="nav-links">
+    <!-- Navigation links (anchor to page sections) -->
+    <ul class="nav-links">
       <li class="link"><a href="#home">Home</a></li>
-      <li id="link1" class="link"><a href="#skills">Skills</a></li>
-      <li id="link2" class="link"><a href="#education">Education</a></li>
-      <li id="link3" class="link"><a href="#projects">Projects</a></li>
-      <li id="link4" class="link"><a href="#about">About</a></li>
+      <li class="link"><a href="#skills">Skills</a></li>
+      <li class="link"><a href="#education">Education</a></li>
+      <li class="link"><a href="#projects">Projects</a></li>
+      <li class="link"><a href="#about">About</a></li>
     </ul>
-    <a
-      href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
+
+    <!-- Call-to-action button:
+         Opens user's email client with pre-filled subject/body -->
+    <a href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
       <button class="btn">Hire Me</button>
     </a>
   </nav>
 
-  <header class="container">
+  <!-- Hero / Intro section -->
+  <header class="container" id="home">
     <div class="content">
-      <H1>Hi, I'm <span>Teresa Fares</span></H1>
+      <!-- Main heading with highlighted name -->
+      <h1>Hi, I'm <span>Teresa Fares</span></h1>
+
+      <!-- Short professional summary -->
       <p>
         Motivated and detail-oriented Systems Support Analyst with a solid foundation in IT troubleshooting,
-        system maintenance,
-        and user support. Currently working in IT with a Bachelor's in Programming, a completed Certificate III
-        in Information
-        and Communication Technology (TAFE NSW), ITIL v4 certification, and currently undertaking Certificate IV
-        in Information
-        Technology. I bring hands-on experience in diagnosing technical issues, configuring systems, and
-        managing user requests
-        in a fast-paced environment.
+        system maintenance, and user support. Currently working in IT with a Bachelor's in Programming,
+        a completed Certificate III in Information and Communication Technology (TAFE NSW), ITIL v4 certification,
+        and currently undertaking Certificate IV in Information Technology.
       </p>
-      <div style="display: flex; align-items: center; gap: 20px;">
+
+      <!-- Hero actions: CV download + social links -->
+      <div class="hero-actions">
+        <!-- Downloads your PDF resume (ensure path is correct + case-sensitive on GitHub Pages) -->
         <a href="Documents/Teresa Fares Resume.pdf" download>
           <button class="btn cvbtn">Download CV</button>
         </a>
-        <a href="https://www.linkedin.com/in/teresa-fares/" target="_blank">
-          <img src="images/image-removebg-preview.png" alt="Linkedin" style="height: 50px; object-fit: contain;">
+
+        <!-- LinkedIn link (new tab) -->
+        <a href="https://www.linkedin.com/in/teresa-fares/" target="_blank" rel="noreferrer">
+          <img src="images/image-removebg-preview.png" alt="LinkedIn" class="social-icon" />
         </a>
-        <a href="https://github.com/TeresaFares5" target="_blank">
-          <img src="images/GitHub-removebg-preview.png" alt="GitHub" style="height: 50px; object-fit: contain;">
+
+        <!-- GitHub link (new tab) -->
+        <a href="https://github.com/TeresaFares5" target="_blank" rel="noreferrer">
+          <img src="images/GitHub-removebg-preview.png" alt="GitHub" class="social-icon" />
         </a>
       </div>
-
     </div>
-    <div class="image" style="margin-bottom: 50px;">
-      <img src="images/header.png">
+
+    <!-- Hero image (right side) -->
+    <div class="image hero-image">
+      <img src="images/header.png" alt="Header graphic" />
     </div>
   </header>
 
-  <section class="container header">
-    <h2 class="header">MY SKILLS</h2>
+  <!-- Skills section -->
+  <section class="container section" id="skills">
+    <h2 class="section-title">MY SKILLS</h2>
+
+    <!-- Skills cards -->
     <div class="skills">
       <div class="card">
         <h4>Programming & Infrastructure Automation</h4>
         <p>
-          Develop scripts, tools, and automated workflows to manage IT systems and services. Apply programming
-          skills to improve efficiency, security, and system reliability.
+          Develop scripts, tools, and automated workflows to manage IT systems and services.
         </p>
-        <a
-          href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">Let's
-          go <i class="ri-arrow-right-line"></i></a>
+        <!-- Mailto CTA -->
+        <a href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
+          Let's go <i class="ri-arrow-right-line"></i>
+        </a>
       </div>
+
       <div class="card">
         <h4>Systems Integration & Automation</h4>
         <p>
-          Set up and manage services and IT environments. Integrate multiple tools to create efficient,
-          automated workflows.
+          Set up and manage services and IT environments. Integrate multiple tools to create efficient workflows.
         </p>
-        <a
-          href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">Let's
-          go <i class="ri-arrow-right-line"></i></a>
+        <!-- Mailto CTA -->
+        <a href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
+          Let's go <i class="ri-arrow-right-line"></i>
+        </a>
       </div>
+
       <div class="card">
         <h4>Problem-Solving & Technical Support</h4>
         <p>
-          Analyze and troubleshoot complex technical issues. Apply ITSM best practices, secure system
-          configuration, and workflow optimization to support projects and users.
+          Analyze and troubleshoot complex technical issues using ITSM best practices and secure configuration.
         </p>
-        <a
-          href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">Let's
-          Go <i class="ri-arrow-right-line"></i></a>
+        <!-- Mailto CTA -->
+        <a href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
+          Let's go <i class="ri-arrow-right-line"></i>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="container header">
-    <h2 class="header">MY EDUCATION</h2>
+  <!-- Education section -->
+  <section class="container section" id="education">
+    <h2 class="section-title">MY EDUCATION</h2>
+
+    <!-- Education cards (each has a title + bullet list) -->
     <div class="education">
       <div class="card">
-        <h4>Certificate IV in Information and Communications Technology -</br> TAFE</h4>
+        <h4>Certificate IV in Information and Communications Technology -<br>TAFE</h4>
         <ul>
           <li>IT systems administration and application support</li>
           <li>Secure environment configuration and user access management</li>
@@ -113,9 +143,9 @@
           <li>Team-based delivery of IT solutions</li>
         </ul>
       </div>
-      <div class="card">
-        <h4>Certificate III in Information and Communications Technology -</br> TAFE</h4>
 
+      <div class="card">
+        <h4>Certificate III in Information and Communications Technology -<br>TAFE</h4>
         <ul>
           <li>Foundations in programming, networking, and web development</li>
           <li>ICT troubleshooting and technical support fundamentals</li>
@@ -124,8 +154,9 @@
           <li>Communication, teamwork, and problem-solving skills</li>
         </ul>
       </div>
+
       <div class="card">
-        <h4>Games Development (Programming) </br> SAE Institute</h4>
+        <h4>Games Development (Programming)<br>SAE Institute</h4>
         <ul>
           <li>Programming and game engine scripting (Unity / C#)</li>
           <li>Gameplay systems development and implementation</li>
@@ -134,123 +165,157 @@
           <li>Team-based project development</li>
         </ul>
       </div>
+
       <div class="card">
-        <h4>ITIL v4 Foundation - <br>PeopleCert</h4>
+        <h4>ITIL v4 Foundation -<br>PeopleCert</h4>
         <ul>
           <li>Solid understanding of ITSM best practices based on ITIL</li>
-          <li>Knowledge of service lifecycle stages, incident & problem management, and change control</li>
-          <li>Skills in continual service improvement and aligning IT services with business needs</li>
-          <li>Enhancing service delivery efficiency through structured IT processes</li>
+          <li>Incident & problem management, and change control</li>
+          <li>Continual service improvement and aligning IT services with business needs</li>
+          <li>Enhancing service delivery efficiency through structured processes</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="container header">
-    <h2 class="header">PROJECTS</h2>
+  <!-- Projects section (carousel UI) -->
+  <section class="container section" id="projects">
+    <h2 class="section-title">PROJECTS</h2>
+
+    <!-- Intro text under section title -->
     <p class="sub-header">
-      Welcome to my portfolio. Here you’ll find a selection of my work. Explore my projects to learn more about what I do - and yes, I built this website too.
+      Welcome to my portfolio. Here you’ll find a selection of my work. Explore my projects to learn more about what I do — and yes, I built this website too.
     </p>
 
-    <div class="projects">
+    <!-- Carousel wrapper -->
+    <div class="projects-carousel" aria-label="Projects carousel">
+      <!-- Previous button -->
+      <button class="carousel-btn prev" type="button" aria-label="Previous project">
+        <i class="ri-arrow-left-s-line"></i>
+      </button>
 
-      <div class="card">
-        <div class="content">
-          <h4>Infrastructure / PowerShell</h4>
+      <!-- Viewport is focusable for keyboard users (tabindex=0) -->
+      <div class="carousel-viewport" id="projectsViewport" tabindex="0">
+        <!-- Track holds all slides/cards -->
+        <div class="carousel-track" id="projectsTrack">
 
-          <h3>Enterprise User Onboarding Automation</h3>
-          <p><i class="ri-checkbox-circle-line"></i> PowerShell-based GUI for user provisioning</p>
-          <p><i class="ri-checkbox-circle-line"></i> Active Directory & Microsoft 365 integration</p>
-          <p><i class="ri-checkbox-circle-line"></i> Role-based group and license assignment</p>
-          <p><i class="ri-checkbox-circle-line"></i> Secure, config-driven architecture</p>
-          <p><i class="ri-checkbox-circle-line"></i> Demo mode for safe testing without live systems</p>
+          <!-- Project 1 -->
+          <article class="carousel-card">
+            <div class="content">
+              <h4>Infrastructure / PowerShell</h4>
+              <h3>Enterprise User Onboarding Automation</h3>
+              <p><i class="ri-checkbox-circle-line"></i> PowerShell-based GUI for user provisioning</p>
+              <p><i class="ri-checkbox-circle-line"></i> Active Directory & Microsoft 365 integration</p>
+              <p><i class="ri-checkbox-circle-line"></i> Role-based group and license assignment</p>
+              <p><i class="ri-checkbox-circle-line"></i> Secure, config-driven architecture</p>
+              <p><i class="ri-checkbox-circle-line"></i> Demo mode for safe testing without live systems</p>
 
-          <button class="btn" onclick="window.open('https://github.com/TeresaFares5/Onboarding-GUI-PowerShell')">
-            View on GitHub
-          </button>
-        </div>
-    </div>
+              <!-- Opens GitHub repo in new window/tab -->
+              <button class="btn" onclick="window.open('https://github.com/TeresaFares5/Onboarding-GUI-PowerShell')">
+                View on GitHub
+              </button>
+            </div>
+          </article>
 
-      <div class="card">
-        <div class="content">
-          <h4>Cybersecurity / PowerShell</h4>
+          <!-- Project 2 -->
+          <article class="carousel-card">
+            <div class="content">
+              <h4>Cybersecurity / PowerShell</h4>
+              <h3>Windows Security Hardening Toolkit</h3>
+              <p><i class="ri-checkbox-circle-line"></i> PowerShell Modular Script</p>
+              <p><i class="ri-checkbox-circle-line"></i> Audit, Enforce, and Rollback Modes</p>
+              <p><i class="ri-checkbox-circle-line"></i> SMBv1 Hardening & Local Password Policies</p>
+              <p><i class="ri-checkbox-circle-line"></i> Windows Defender & Audit Policy Configuration</p>
+              <p><i class="ri-checkbox-circle-line"></i> Detailed Logging & Safe Testing Practices</p>
+              <p><i class="ri-checkbox-circle-line"></i> Enterprise-Aligned Security Baseline Implementation</p>
 
-          <h3>Windows Security Hardening Toolkit</h3>
-          <p><i class="ri-checkbox-circle-line"></i> PowerShell Modular Script</p>
-          <p><i class="ri-checkbox-circle-line"></i> Audit, Enforce, and Rollback Modes</p>
-          <p><i class="ri-checkbox-circle-line"></i> SMBv1 Hardening & Local Password Policies</p>
-          <p><i class="ri-checkbox-circle-line"></i> Windows Defender & Audit Policy Configuration</p>
-          <p><i class="ri-checkbox-circle-line"></i> Detailed Logging & Safe Testing Practices</p>
-          <p><i class="ri-checkbox-circle-line"></i> Enterprise-Aligned Security Baseline Implementation</p>
+              <!-- Opens GitHub repo -->
+              <button class="btn" onclick="window.open('https://github.com/TeresaFares5/Windows-Security-Hardening')">
+                View on GitHub
+              </button>
+            </div>
+          </article>
 
-          <button class="btn" onclick="window.open('https://github.com/TeresaFares5/Windows-Security-Hardening')">
-            View on GitHub
-          </button>
+          <!-- Project 3 -->
+          <article class="carousel-card">
+            <div class="content">
+              <h4>Infrastructure</h4>
+              <h3>Self-Hosted Komga / Lazy Librarian Server</h3>
+              <p><i class="ri-checkbox-circle-line"></i> Linux Server</p>
+              <p><i class="ri-checkbox-circle-line"></i> Komga Media Server / Lazy Librarian Server</p>
+              <p><i class="ri-checkbox-circle-line"></i> qBittorrent Integration</p>
+              <p><i class="ri-checkbox-circle-line"></i> Prowlarr Indexer Management</p>
+              <p><i class="ri-checkbox-circle-line"></i> Mylar Automation & Metadata Management</p>
+              <p><i class="ri-checkbox-circle-line"></i> Service Configuration & Troubleshooting</p>
+
+              <!-- GitHub repo link -->
+              <button class="btn" onclick="window.open('https://github.com/TeresaFares5/HomeLab/tree/main')">
+                View on GitHub
+              </button>
+
+              <!-- Live site link (ensure HTTPS + DNS is correct) -->
+              <button class="btn" onclick="window.open('https://komga.teresafares.com/')">
+                Visit
+              </button>
+            </div>
+          </article>
+
+          <!-- Project 4 (two games in one card) -->
+          <article class="carousel-card">
+            <div class="content">
+              <h4>Games</h4>
+
+              <h3>Fear Flash</h3>
+              <p><i class="ri-checkbox-circle-line"></i> C#</p>
+              <p><i class="ri-checkbox-circle-line"></i> Unity 3D</p>
+              <button class="btn" onclick="window.open('https://shado-5.itch.io/fear-flash')">Visit</button>
+
+              <!-- Divider between two game projects inside the same card -->
+              <hr>
+
+              <h3 style="margin-top: 20px;">Villain's Valour</h3>
+              <p><i class="ri-checkbox-circle-line"></i> C#</p>
+              <p><i class="ri-checkbox-circle-line"></i> Unity 2D</p>
+              <button class="btn" onclick="window.open('https://shado-5.itch.io/villains-valor')">Visit</button>
+            </div>
+          </article>
+
         </div>
       </div>
-      
-    <div class="card">
-        <div class="content">
-          <h4>Infrastructure</h4>
 
-          <h3>Self-Hosted Komga / Lazy Librarian Server</h3>
-          <p><i class="ri-checkbox-circle-line"></i> Linux Server</p>
-          <p><i class="ri-checkbox-circle-line"></i> Komga Media Server / Lazy Librarian Server</p>
-          <p><i class="ri-checkbox-circle-line"></i> qBittorrent Integration</p>
-          <p><i class="ri-checkbox-circle-line"></i> Prowlarr Indexer Management</p>
-          <p><i class="ri-checkbox-circle-line"></i> Mylar Automation & Metadata Management</p>
-          <p><i class="ri-checkbox-circle-line"></i> Service Configuration & Troubleshooting</p>
-
-          <button class="btn" onclick="window.open('https://github.com/TeresaFares5/HomeLab/tree/main')">
-            ReadMe
-          </button>
-          <button class="btn" onclick="window.open('https://komga.teresafares.com/')">
-            Visit
-          </button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="content">
-          <h4>Games</h4>
-
-          <h3>Fear Flash</h3>
-          <p><i class="ri-checkbox-circle-line"></i> C#</p>
-          <p><i class="ri-checkbox-circle-line"></i> Unity 3D</p>
-          <button class="btn" onclick="window.open('https://shado-5.itch.io/fear-flash')">
-            Visit
-          </button>
-
-          <hr>
-
-          <h3 style="margin-top: 20px;">Villain's Valour</h3>
-          <p><i class="ri-checkbox-circle-line"></i> C#</p>
-          <p><i class="ri-checkbox-circle-line"></i> Unity 2D</p>
-          <button class="btn" onclick="window.open('https://shado-5.itch.io/villains-valor')">
-            Visit
-          </button>
-        </div>
-      </div>
-
+      <!-- Next button -->
+      <button class="carousel-btn next" type="button" aria-label="Next project">
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
     </div>
   </section>
 
-  <footer id="About" class="container">
+  <!-- Footer / About section (ID matches nav link #about) -->
+  <footer id="about" class="container">
     <div class="column">
       <h4>Contact</h4>
-      <a
-        href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">teresafares@hotmail.com</a>
-      <a href="tel: 0491141724">0491 141 724</a>
+
+      <!-- Email link (mailto) -->
+      <a href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
+        teresafares@hotmail.com
+      </a>
+
+      <!-- Phone link (tap-to-call on mobile) -->
+      <a href="tel:0491141724">0491 141 724</a>
     </div>
   </footer>
 
+  <!-- Copyright line -->
   <div class="copyright">
     Copyright © 2025 Teresa Fares. All Rights Reserved.
   </div>
-  <button id="backToTop" class="back-to-top" aria-label="Back to top">
-  <i class="ri-arrow-up-line"></i>
-</button>
 
+  <!-- Back to top button (likely controlled by script.js for show/hide + scroll behavior) -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="ri-arrow-up-line"></i>
+  </button>
+
+  <!-- Your JS (carousel controls, back-to-top, etc.) -->
   <script src="script.js"></script>
 </body>
-
 </html>
