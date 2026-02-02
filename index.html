@@ -26,24 +26,18 @@
   <!-- Top navigation bar -->
   <nav>
 
-  <ul class="nav-links" id="navLinks">
-    <!-- <li class="link"><a href="#home">Home</a></li> -->
-    <li class="link"><a href="#skills">Skills</a></li>
-    <li class="link"><a href="#education">Education</a></li>
-    <li class="link"><a href="#projects">Projects</a></li>
-    <li class="link"><a href="#about">Contact</a></li>
-  </ul>
+    <ul class="nav-links" id="navLinks">
+      <!-- <li class="link"><a href="#home">Home</a></li> -->
+      <li class="link"><a href="#skills">Skills</a></li>
+      <li class="link"><a href="#education">Education</a></li>
+      <li class="link"><a href="#projects">Projects</a></li>
+      <li class="link"><a href="#about">Contact</a></li>
+    </ul>
 
-  <button
-    class="nav-toggle"
-    id="navToggle"
-    type="button"
-    aria-label="Open menu"
-    aria-expanded="false"
-    aria-controls="navLinks"
-  >
-    <i class="ri-menu-line"></i>
-  </button>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false"
+      aria-controls="navLinks">
+      <i class="ri-menu-line"></i>
+    </button>
   </nav>
 
   <!-- Hero / Intro section -->
@@ -96,11 +90,6 @@
         <p>
           Develop scripts, tools, and automated workflows to manage IT systems and services.
         </p>
-        <!-- Mailto CTA -->
-        <a
-          href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
-          Let's go <i class="ri-arrow-right-line"></i>
-        </a>
       </div>
 
       <div class="card">
@@ -108,11 +97,6 @@
         <p>
           Set up and manage services and IT environments. Integrate multiple tools to create efficient workflows.
         </p>
-        <!-- Mailto CTA -->
-        <a
-          href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
-          Let's go <i class="ri-arrow-right-line"></i>
-        </a>
       </div>
 
       <div class="card">
@@ -120,11 +104,6 @@
         <p>
           Analyze and troubleshoot complex technical issues using ITSM best practices and secure configuration.
         </p>
-        <!-- Mailto CTA -->
-        <a
-          href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
-          Let's go <i class="ri-arrow-right-line"></i>
-        </a>
       </div>
     </div>
   </section>
@@ -241,7 +220,7 @@
             </div>
           </article>
 
-          <!-- Project 3 -->
+          <!-- Komga -->
           <article class="carousel-card">
             <div class="content">
               <h4>Infrastructure / Linux</h4>
@@ -258,7 +237,7 @@
                 View on GitHub
               </button>
 
-              <!-- Live site link (ensure HTTPS + DNS is correct) -->
+              <!-- Live site link  -->
               <button class="btn" onclick="window.open('https://komga.teresafares.com/')">
                 Visit
               </button>
@@ -286,7 +265,7 @@
           </article>
 
 
-          <!-- Project 4-->
+          <!-- FEAR FLASH -->
           <article class="carousel-card">
             <div class="content">
               <h4>Game Development / 3D Horror</h4>
@@ -302,7 +281,7 @@
               <p><i class="ri-checkbox-circle-line"></i> Performance optimisation and bug fixing across multiple levels
               </p>
 
-              <!-- Optional repo or build link -->
+              <!-- build link -->
               <button class="btn" onclick="window.open('https://shado-5.itch.io/fear-flash')">
                 View Project
               </button>
@@ -325,7 +304,7 @@
               <p><i class="ri-checkbox-circle-line"></i> Global leaderboard tracking player performance and survival
                 time</p>
 
-              <!-- Optional repo or build link -->
+              <!-- build link -->
               <button class="btn" onclick="window.open('https://shado-5.itch.io/villains-valor')">
                 View Project
               </button>
@@ -347,28 +326,44 @@
     <div class="column">
       <h4>Contact</h4>
 
-      <!-- Email link (mailto) -->
-      <a
-        href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
-        teresafares@hotmail.com
-      </a>
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/mjgoepee" method="POST">
+        <label>
+          Name
+          <input type="text" name="name" autocomplete="name" required />
+        </label>
 
-      <!-- Phone link (tap-to-call on mobile) -->
-      <a href="tel:0491141724">0491 141 724</a>
+        <label>
+          Email
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+
+        <label>
+          Message
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+
+        <button class="btn" type="submit">Send</button>
+
+  
+        <p id="formStatus" style="color:#ccc; text-align:center; margin-top:0.75rem;"></p>
+      </form>
+
+
     </div>
   </footer>
+
 
   <!-- Copyright line -->
   <div class="copyright">
     Copyright © 2025 Teresa Fares. All Rights Reserved.
   </div>
 
-  <!-- Back to top button (likely controlled by script.js for show/hide + scroll behavior) -->
+  <!-- Back to top button  -->
   <button id="backToTop" class="back-to-top" aria-label="Back to top">
     <i class="ri-arrow-up-line"></i>
   </button>
 
-  <!-- Your JS (carousel controls, back-to-top, etc.) -->
+  <!-- JS -->
   <script src="script.js"></script>
 </body>
 

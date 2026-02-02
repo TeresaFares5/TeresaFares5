@@ -206,46 +206,46 @@ if (viewport && track) {
     }
 
     // ----------------------------
-// Active card tracking (mobile-proof) using IntersectionObserver
-// ----------------------------
-let io = null;
+    // Active card tracking (mobile-proof) using IntersectionObserver
+    // ----------------------------
+    let io = null;
 
-function setupCenterObserver() {
-  if (!("IntersectionObserver" in window)) return;
+    function setupCenterObserver() {
+      if (!("IntersectionObserver" in window)) return;
 
-  // Kill any old observer
-  if (io) io.disconnect();
+      // Kill any old observer
+      if (io) io.disconnect();
 
-  // A vertical "center band" in the viewport.
-  // Only the card intersecting this band becomes active.
-  io = new IntersectionObserver(
-    (entries) => {
-      // Pick the most-intersecting card inside the center band
-      let bestEl = null;
-      let bestRatio = 0;
+      // A vertical "center band" in the viewport.
+      // Only the card intersecting this band becomes active.
+      io = new IntersectionObserver(
+        (entries) => {
+          // Pick the most-intersecting card inside the center band
+          let bestEl = null;
+          let bestRatio = 0;
 
-      for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        if (e.intersectionRatio > bestRatio) {
-          bestRatio = e.intersectionRatio;
-          bestEl = e.target;
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            if (e.intersectionRatio > bestRatio) {
+              bestRatio = e.intersectionRatio;
+              bestEl = e.target;
+            }
+          }
+
+          if (bestEl) setActiveCard(bestEl);
+        },
+        {
+          root: viewport,
+          // shrink the root so only the middle ~10% counts as "active zone"
+          rootMargin: "0px -45% 0px -45%",
+          threshold: [0, 0.25, 0.5, 0.75, 1],
         }
-      }
+      );
 
-      if (bestEl) setActiveCard(bestEl);
-    },
-    {
-      root: viewport,
-      // shrink the root so only the middle ~10% counts as "active zone"
-      rootMargin: "0px -45% 0px -45%",
-      threshold: [0, 0.25, 0.5, 0.75, 1],
+      allCards.forEach((c) => io.observe(c));
     }
-  );
 
-  allCards.forEach((c) => io.observe(c));
-}
-
-setupCenterObserver();
+    setupCenterObserver();
 
 
     // ----------------------------
@@ -301,11 +301,11 @@ setupCenterObserver();
       }
 
       scrollToEl(best, smooth);
-      return best; // ✅ return the exact element we scrolled to
+      return best; //return the exact element we scrolled to
     }
 
     function goToNearestLogicalDirectional(logicalIndex, dir, smooth) {
-      // for arrows: must move in a wheel direction (no "jump to other side")
+      // for arrows: must move in a wheel direction
       const candidates = allCards
         .filter((c) => (parseInt(c.dataset.index, 10) || 0) === logicalIndex)
         .map((el) => ({ el, target: centerScrollLeftForCard(el) }));
@@ -413,7 +413,6 @@ setupCenterObserver();
     buildDots();
 
     // Start on the "middle" set so user can go both ways
-    // Start on the "middle" set so user can go both ways
     requestAnimationFrame(() => {
       // IMPORTANT: hard reset first (beats scroll restoration + cached positions)
       viewport.style.scrollBehavior = "auto";
@@ -438,59 +437,56 @@ setupCenterObserver();
     });
 
     // ----------------------------
-    // Scroll handling (debounced end-of-scroll)
+    // Scroll handling (mobile snap-safe)
     // ----------------------------
-    // ----------------------------
-// Scroll handling (mobile snap-safe)
-// ----------------------------
-let settleRAF = null;
-let stableFrames = 0;
-let lastLeft = viewport.scrollLeft;
+    let settleRAF = null;
+    let stableFrames = 0;
+    let lastLeft = viewport.scrollLeft;
 
-function settleAfterScroll() {
-  if (settleRAF) cancelAnimationFrame(settleRAF);
+    function settleAfterScroll() {
+      if (settleRAF) cancelAnimationFrame(settleRAF);
 
-  stableFrames = 0;
-  lastLeft = viewport.scrollLeft;
+      stableFrames = 0;
+      lastLeft = viewport.scrollLeft;
 
-  const tick = () => {
-    const now = viewport.scrollLeft;
+      const tick = () => {
+        const now = viewport.scrollLeft;
 
-    // tiny epsilon so we don't get stuck on sub-pixel changes
-    if (Math.abs(now - lastLeft) < 0.5) stableFrames++;
-    else stableFrames = 0;
+        // tiny epsilon so we don't get stuck on sub-pixel changes
+        if (Math.abs(now - lastLeft) < 0.5) stableFrames++;
+        else stableFrames = 0;
 
-    lastLeft = now;
+        lastLeft = now;
 
-    // Wait until it's been stable for a few frames (snap finished)
-    if (stableFrames >= 6) {
-      settleRAF = null;
-      const c = closestCard();
-      setActiveCard(c);
-      recenterIfNeededIdle();
-      return;
+        // Wait until it's been stable for a few frames (snap finished)
+        if (stableFrames >= 6) {
+          settleRAF = null;
+          const c = closestCard();
+          setActiveCard(c);
+          recenterIfNeededIdle();
+          return;
+        }
+
+        settleRAF = requestAnimationFrame(tick);
+      };
+
+      settleRAF = requestAnimationFrame(tick);
     }
 
-    settleRAF = requestAnimationFrame(tick);
-  };
+    viewport.addEventListener("scroll", () => {
+      if (isRecentering) return;
 
-  settleRAF = requestAnimationFrame(tick);
-}
-
-viewport.addEventListener("scroll", () => {
-  if (isRecentering) return;
-
-  clearTimeout(idleTimer);
-  idleTimer = setTimeout(() => {
-    // Don't call setActiveCard here anymore — observer does it
-    recenterIfNeededIdle();
-  }, 120);
-});
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        // Don't call setActiveCard here anymore — observer does it
+        recenterIfNeededIdle();
+      }, 120);
+    });
 
 
-// Also kick settle when the user finishes a gesture (helps iOS)
-viewport.addEventListener("touchend", settleAfterScroll, { passive: true });
-viewport.addEventListener("pointerup", settleAfterScroll, { passive: true });
+    // Also kick settle when the user finishes a gesture (helps iOS)
+    viewport.addEventListener("touchend", settleAfterScroll, { passive: true });
+    viewport.addEventListener("pointerup", settleAfterScroll, { passive: true });
 
 
     // ----------------------------
@@ -526,3 +522,58 @@ viewport.addEventListener("pointerup", settleAfterScroll, { passive: true });
     });
   }
 }
+
+// ================================
+// Contact form (Formspree) -> redirect to custom thanks page
+// ================================
+const contactForm = document.getElementById("contactForm");
+const formStatus = document.getElementById("formStatus");
+
+contactForm?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const btn = contactForm.querySelector('button[type="submit"]');
+  const originalText = btn?.textContent;
+
+  try {
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Sending...";
+    }
+    if (formStatus) formStatus.textContent = "";
+
+    const formData = new FormData(contactForm);
+
+    const res = await fetch(contactForm.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (res.ok) {
+      // Redirect to custom page on success
+      window.location.href = "thanks.html";
+      return;
+    }
+
+    // If Formspree returns validation/other error
+    const data = await res.json().catch(() => null);
+    const msg =
+      data?.errors?.[0]?.message ||
+      "Something went wrong. Please try again or email me directly.";
+
+    if (formStatus) formStatus.textContent = msg;
+  } catch (err) {
+    if (formStatus) {
+      formStatus.textContent =
+        "Network error. Please try again or email me directly.";
+    }
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = originalText || "Send";
+    }
+  }
+});

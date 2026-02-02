@@ -61,7 +61,7 @@ nav {
   display: flex;
   align-items: center;
   gap: 3rem;
-  padding-left: 0; /* override your global ul padding */
+  padding-left: 0; 
 }
 
 .nav-toggle {
@@ -481,9 +481,49 @@ header .image img {
 .carousel-dot.is-active {
   background: #a201ff;
   border-color: #a201ff;
-  width: 22px;              /* makes it feel like a progress indicator */
+  width: 22px;            
   transform: scale(1.05);
 }
+
+.contact-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 520px;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.5rem;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: #27272a;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #a201ff;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.contact-form .btn {
+  width: fit-content;
+  border: none; 
+}
+
 
 /* Hide arrows on touch devices */
 @media (hover: none) and (pointer: coarse) {
@@ -510,46 +550,80 @@ header .image img {
   }
 }
 
-/* =====================
-   FOOTER
-   ===================== */
+footer#about.container {
+  display: flex;
+  justify-content: center;   
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
 
-footer {
-  position: relative;
+/* Make the footer column a centered card */
+footer#about .column {
+  width: min(900px, 100%);   
+  background: #27272a;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+
+footer#about .column h4 {
+  color: #fff;
+  margin-bottom: 1.25rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;       
+}
+
+/* Make the form wider and centered */
+.contact-form {
+  width: 100%;
+  max-width: 760px;          
+  margin: 0 auto;            
   display: grid;
-  margin: auto;
-  grid-template-columns: 400px repeat(3, 1fr);
-  gap: 2rem;
+  gap: 1rem;
 }
 
-footer .column h4 {
+/* Make labels readable */
+.contact-form label {
+  display: grid;
+  gap: 0.5rem;
   color: #fff;
-  margin-bottom: 2rem;
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1rem;
 }
 
-footer .column a {
-  display: block;
-  color: #ccc;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
-}
-
-footer .column a:hover {
-  color: #a201ff;
-}
-
-/* Copyright bar */
-.copyright {
-  max-width: 1200px;
-  margin: auto;
-  padding: 1rem;
+/* Bigger inputs on desktop */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  background: #18181b7e;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 12px;
+  padding: 1rem 1rem;
   color: #fff;
-  font-size: 1rem;         
-  opacity: 0.6;             
-  transform: scale(0.85);   
-  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* Focus glow */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #a201ff;
+}
+
+/* Taller message box */
+.contact-form textarea {
+  min-height: 180px;
+  resize: vertical;
+}
+
+/* Center the button */
+.contact-form .btn {
+  width: fit-content;
+  border: none;
+  justify-self: center;      
+  padding: 1rem 2.5rem;
 }
 
 /* =====================
@@ -580,6 +654,18 @@ footer .column a:hover {
     background-color: #3f105c;
   }
 }
+
+/* Copyright bar */ 
+.copyright {
+   max-width: 1200px; 
+   margin: auto; 
+   padding: 1rem; 
+   color: #fff; 
+   font-size: 1rem; 
+   opacity: 0.6; 
+   transform: scale(0.85); 
+   text-align: center; 
+  }
 
 /* =====================
    RESPONSIVE
@@ -658,10 +744,25 @@ footer .column a:hover {
     pointer-events: auto;
   }
 
-  /* optional: stop underline from looking weird stacked */
+  /* Adjust link underline position */
   .link a::after {
     bottom: -2px;
   }
+
+  footer#about .column {
+    border-radius: 14px;
+    padding: 1.25rem;
+  }
+
+  .contact-form {
+    max-width: 100%;
+  }
+
+  .contact-form .btn {
+    width: 100%;             
+    justify-self: stretch;
+  }
+
 }
 
 }
