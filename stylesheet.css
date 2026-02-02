@@ -293,6 +293,9 @@ header .image img {
 .projects-carousel {
   margin-top: 3rem;
   position: relative;
+
+  --gap: clamp(0.9rem, 2.5vw, 1.5rem);
+  --cardW: clamp(280px, 80vw, 720px);
 }
 
 /* Scroll container */
@@ -300,19 +303,17 @@ header .image img {
   overflow-x: auto;
   overflow-y: visible;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 1rem 0 2.25rem;
+
+  padding: 1rem calc((100% - var(--cardW)) / 2) 2.25rem;
+
   perspective: 1200px;
   outline: none;
 }
 
 /* Horizontal track */
 .carousel-track {
-  --gap: clamp(0.9rem, 2.5vw, 1.5rem);
-  --cardW: clamp(280px, 80vw, 720px);
-  --sidePadPx: 16px; /* Updated dynamically by JS */
-
   display: flex;
   gap: var(--gap);
   align-items: stretch;
@@ -322,8 +323,7 @@ header .image img {
 /* Side spacers allow centering first/last card */
 .carousel-track::before,
 .carousel-track::after {
-  content: "";
-  flex: 0 0 var(--sidePadPx);
+  content: none;
 }
 
 /* Individual carousel card */

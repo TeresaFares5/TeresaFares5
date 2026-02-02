@@ -4,22 +4,13 @@
 document.querySelectorAll('a[href^="#"]').forEach((a) => {
   a.addEventListener("click", (e) => {
     const targetId = a.getAttribute("href");
-
-    // Ignore empty or placeholder hashes
     if (!targetId || targetId === "#") return;
 
-    // Find the target section
     const target = document.querySelector(targetId);
     if (!target) return;
 
-    // Prevent default jump-to-anchor behaviour
     e.preventDefault();
-
-    // Smoothly scroll the section into view
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 });
 
@@ -28,178 +19,372 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
 // ================================
 const backToTopBtn = document.getElementById("backToTop");
 
-// Show / hide button based on scroll position
 window.addEventListener("scroll", () => {
+  if (!backToTopBtn) return;
   backToTopBtn.style.display = window.scrollY > 300 ? "flex" : "none";
 });
 
-// Smooth scroll back to the top when clicked
-backToTopBtn.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+backToTopBtn?.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 // ================================
-// Projects Carousel
+// Projects Carousel (Infinite Wheel - No Lag / No Auto Scroll)
 // ================================
 const viewport = document.getElementById("projectsViewport");
 const track = document.getElementById("projectsTrack");
 
-// Only initialise carousel if required elements exist
 if (viewport && track) {
-  // All carousel cards
-  const cards = Array.from(track.querySelectorAll(".carousel-card"));
-
-  // Navigation buttons
   const prevBtn = document.querySelector(".carousel-btn.prev");
   const nextBtn = document.querySelector(".carousel-btn.next");
+  const dotsWrap = document.getElementById("projectsDots");
 
-  // --------------------------------
-  // Determine which card is closest
-  // to the center of the viewport
-  // --------------------------------
-  function getClosestCardIndex() {
-    const viewportRect = viewport.getBoundingClientRect();
-    const viewportCenter = viewportRect.left + viewportRect.width / 2;
+  // Real cards only (before cloning)
+  const originals = Array.from(track.querySelectorAll(".carousel-card"));
+  const n = originals.length;
 
-    let closestIndex = 0;
-    let closestDistance = Infinity;
+  if (n < 2) {
+    console.warn("Carousel needs at least 2 cards.");
+  } else {
+    // Tag originals with a logical index
+    originals.forEach((card, i) => (card.dataset.index = String(i)));
 
-    cards.forEach((card, i) => {
-      const rect = card.getBoundingClientRect();
-      const cardCenter = rect.left + rect.width / 2;
-      const dist = Math.abs(viewportCenter - cardCenter);
+    // Clone full set to both ends
+    const headClones = originals.map((c) => {
+      const clone = c.cloneNode(true);
+      clone.classList.add("is-clone");
+      clone.dataset.index = c.dataset.index;
+      return clone;
+    });
 
-      if (dist < closestDistance) {
-        closestDistance = dist;
-        closestIndex = i;
+    const tailClones = originals.map((c) => {
+      const clone = c.cloneNode(true);
+      clone.classList.add("is-clone");
+      clone.dataset.index = c.dataset.index;
+      return clone;
+    });
+
+    // Prepend head clones (reverse so visual order stays correct)
+    headClones
+      .slice()
+      .reverse()
+      .forEach((c) => track.insertBefore(c, track.firstChild));
+
+    // Append tail clones
+    tailClones.forEach((c) => track.appendChild(c));
+
+    // Now includes clones + originals
+    const allCards = Array.from(track.querySelectorAll(".carousel-card"));
+
+    // ----------------------------
+    // State for stable recentering
+    // ----------------------------
+    let isRecentering = false;
+    let idleTimer = null;
+    let lastScrollLeft = viewport.scrollLeft;
+
+    // ----------------------------
+    // Measurements
+    // ----------------------------
+    function getGapPx() {
+      const cs = getComputedStyle(track);
+      const g = parseFloat(cs.gap || cs.columnGap || "0");
+      return Number.isFinite(g) ? g : 0;
+    }
+
+    function getCardW() {
+      return originals[0].getBoundingClientRect().width;
+    }
+
+    function oneSetWidth() {
+      // width of ONE logical set (n cards + gaps between them)
+      const w = getCardW();
+      const gap = getGapPx();
+      return w * n + gap * (n - 1);
+    }
+
+    // ----------------------------
+    // Dots
+    // ----------------------------
+    function buildDots() {
+      if (!dotsWrap) return;
+      dotsWrap.innerHTML = "";
+      for (let i = 0; i < n; i++) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "carousel-dot";
+        dot.setAttribute("aria-label", `Go to project ${i + 1}`);
+        dot.addEventListener("click", () => goToNearestLogical(i, true));
+        dotsWrap.appendChild(dot);
+      }
+    }
+
+    function setActiveDot(i) {
+      if (!dotsWrap) return;
+      const dots = Array.from(dotsWrap.querySelectorAll(".carousel-dot"));
+      dots.forEach((d) => d.classList.remove("is-active"));
+      if (dots[i]) dots[i].classList.add("is-active");
+    }
+
+    // ----------------------------
+    // Active card detection
+    // ----------------------------
+    function setActiveCard(el) {
+      allCards.forEach((c) => c.classList.remove("is-active"));
+      if (el) el.classList.add("is-active");
+
+      const idx = parseInt(el?.dataset?.index ?? "0", 10);
+      setActiveDot(Number.isFinite(idx) ? idx : 0);
+    }
+
+    function closestCard() {
+      const rect = viewport.getBoundingClientRect();
+      const center = rect.left + rect.width / 2;
+
+      let best = allCards[0];
+      let bestDist = Infinity;
+
+      allCards.forEach((card) => {
+        const r = card.getBoundingClientRect();
+        const c = r.left + r.width / 2;
+        const d = Math.abs(center - c);
+        if (d < bestDist) {
+          bestDist = d;
+          best = card;
+        }
+      });
+
+      return best;
+    }
+
+    // ----------------------------
+    // Scroll to element centered
+    // ----------------------------
+    function scrollToEl(el, smooth) {
+      if (!el) return;
+
+      const vRect = viewport.getBoundingClientRect();
+      const cRect = el.getBoundingClientRect();
+
+      const cardCenterFromViewportLeft =
+        (cRect.left - vRect.left) + (cRect.width / 2);
+
+      const targetLeft =
+        viewport.scrollLeft +
+        cardCenterFromViewportLeft -
+        (vRect.width / 2);
+
+      viewport.scrollTo({ left: targetLeft, behavior: smooth ? "smooth" : "auto" });
+      setActiveCard(el);
+    }
+
+    // Compute the scrollLeft that would center a given card
+    function centerScrollLeftForCard(cardEl) {
+      const vRect = viewport.getBoundingClientRect();
+      const cRect = cardEl.getBoundingClientRect();
+      const cardCenterFromViewportLeft =
+        (cRect.left - vRect.left) + (cRect.width / 2);
+
+      return viewport.scrollLeft + cardCenterFromViewportLeft - (vRect.width / 2);
+    }
+
+    // Go to the NEAREST copy (clone/original) of a logical index
+    function goToNearestLogical(logicalIndex, smooth) {
+      const candidates = allCards.filter(
+        (c) => (parseInt(c.dataset.index, 10) || 0) === logicalIndex
+      );
+      if (!candidates.length) return null;
+
+      const current = viewport.scrollLeft;
+
+      let best = candidates[0];
+      let bestDist = Infinity;
+
+      for (const el of candidates) {
+        const target = centerScrollLeftForCard(el);
+        const dist = Math.abs(target - current);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = el;
+        }
+      }
+
+      scrollToEl(best, smooth);
+      return best; // ✅ return the exact element we scrolled to
+    }
+
+    function goToNearestLogicalDirectional(logicalIndex, dir, smooth) {
+      // for arrows: must move in a wheel direction (no "jump to other side")
+      const candidates = allCards
+        .filter((c) => (parseInt(c.dataset.index, 10) || 0) === logicalIndex)
+        .map((el) => ({ el, target: centerScrollLeftForCard(el) }));
+
+      if (!candidates.length) return;
+
+      const current = viewport.scrollLeft;
+
+      // Prefer candidates that are in the intended direction
+      const directional = candidates.filter(({ target }) =>
+        dir < 0 ? target < current - 1 : target > current + 1
+      );
+
+      const pool = directional.length ? directional : candidates;
+
+      let best = pool[0];
+      let bestDist = Infinity;
+
+      for (const item of pool) {
+        const dist = Math.abs(item.target - current);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = item;
+        }
+      }
+
+      // If we had to fall back (wrong side), recenter instantly then retry once
+      if (!directional.length) {
+        recenterNow(); // defined below
+        return goToNearestLogicalDirectional(logicalIndex, dir, smooth);
+      }
+
+      scrollToEl(best.el, smooth);
+    }
+
+    function recenterNow() {
+      if (isRecentering) return;
+
+      const setW = oneSetWidth();
+      let left = viewport.scrollLeft;
+
+      // Force back into the middle band immediately
+      if (left < setW * 0.5) left += setW;
+      else if (left > setW * 1.5) left -= setW;
+      else return;
+
+      isRecentering = true;
+
+      const prev = viewport.style.scrollBehavior;
+      viewport.style.scrollBehavior = "auto";
+      viewport.scrollLeft = left;
+      viewport.style.scrollBehavior = prev;
+
+      requestAnimationFrame(() => {
+        isRecentering = false;
+      });
+    }
+
+    // ----------------------------
+    // Recenter (INVISIBLE) — only when scrolling stops
+    // ----------------------------
+    function recenterIfNeededIdle() {
+      if (isRecentering) return;
+
+      const setW = oneSetWidth();
+      const left = viewport.scrollLeft;
+
+      // Wider safe zone = fewer recenters = no hiccups
+      let newLeft = null;
+      if (left < setW * 0.25) newLeft = left + setW;
+      else if (left > setW * 1.75) newLeft = left - setW;
+
+      if (newLeft == null) return;
+
+      isRecentering = true;
+
+      // Force instant jump (no smooth)
+      const prev = viewport.style.scrollBehavior;
+      viewport.style.scrollBehavior = "auto";
+      viewport.scrollLeft = newLeft;
+      viewport.style.scrollBehavior = prev;
+
+      requestAnimationFrame(() => {
+        isRecentering = false;
+      });
+    }
+
+    // ----------------------------
+    // Buttons (wheel step)
+    // ----------------------------
+    function step(dir) {
+      // Ensure we're not near the physical edges before stepping
+      recenterNow();
+
+      const currentCard = closestCard();
+      const logical = parseInt(currentCard?.dataset?.index ?? "0", 10) || 0;
+      const nextLogical = (logical + dir + n) % n;
+
+      goToNearestLogicalDirectional(nextLogical, dir, true);
+    }
+
+    // ----------------------------
+    // Init
+    // ----------------------------
+    buildDots();
+
+    // Start on the "middle" set so user can go both ways
+    requestAnimationFrame(() => {
+      // move into the safe middle band
+      viewport.scrollLeft += oneSetWidth();
+
+      // center logical 0 instantly
+      goToNearestLogical(0, false);
+
+      // wait ONE more frame so layout + scroll settle
+      requestAnimationFrame(() => {
+        const c = closestCard();
+        setActiveCard(c);
+      });
+    });
+
+    // ----------------------------
+    // Scroll handling (debounced end-of-scroll)
+    // ----------------------------
+    viewport.addEventListener("scroll", () => {
+      if (isRecentering) return;
+
+      clearTimeout(idleTimer);
+
+      const currentLeft = viewport.scrollLeft;
+      const moved = Math.abs(currentLeft - lastScrollLeft) > 0.5;
+      lastScrollLeft = currentLeft;
+
+      idleTimer = setTimeout(() => {
+        const c = closestCard();
+        setActiveCard(c);
+        recenterIfNeededIdle();
+      }, moved ? 90 : 120);
+    });
+
+    // ----------------------------
+    // Controls
+    // ----------------------------
+    prevBtn?.addEventListener("click", () => step(-1));
+    nextBtn?.addEventListener("click", () => step(1));
+
+    viewport.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        step(-1);
+      }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        step(1);
       }
     });
 
-    return closestIndex;
-  }
+    // ----------------------------
+    // Resize: keep same logical card centered
+    // ----------------------------
+    window.addEventListener("resize", () => {
+      const cur = closestCard();
+      const logical = parseInt(cur?.dataset?.index ?? "0", 10) || 0;
 
-  // --------------------------------
-  // Apply "active" class to center card
-  // --------------------------------
-  function setActiveCard(index) {
-  cards.forEach((c) => c.classList.remove("is-active"));
-  if (cards[index]) cards[index].classList.add("is-active");
-  setActiveDot(index);
-}
-
-  // --------------------------------
-  // Scroll viewport so selected card
-  // is centered horizontally
-  // --------------------------------
-  function scrollToCard(index) {
-    const card = cards[index];
-    if (!card) return;
-
-    const viewportRect = viewport.getBoundingClientRect();
-    const cardRect = card.getBoundingClientRect();
-
-    // Distance from viewport left to card center,
-    // plus current scroll offset
-    const cardCenterFromViewportLeft =
-      (cardRect.left - viewportRect.left) + (cardRect.width / 2);
-
-    const targetScrollLeft =
-      viewport.scrollLeft +
-      cardCenterFromViewportLeft -
-      (viewportRect.width / 2);
-
-    viewport.scrollTo({
-      left: targetScrollLeft,
-      behavior: "smooth"
-    });
-
-    // Update active card styling
-    setActiveCard(index);
-  }
-
-  // --------------------------------
-  // Update active card when user scrolls
-  // (debounced for performance)
-  // --------------------------------
-  let scrollTimer = null;
-
-  viewport.addEventListener("scroll", () => {
-    window.clearTimeout(scrollTimer);
-
-    scrollTimer = window.setTimeout(() => {
-      setActiveCard(getClosestCardIndex());
-    }, 80);
-  });
-
-  // --------------------------------
-  // Previous button behaviour
-  // --------------------------------
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      const idx = getClosestCardIndex();
-      scrollToCard(Math.max(0, idx - 1));
+      requestAnimationFrame(() => {
+        // Re-anchor around middle
+        viewport.scrollLeft = oneSetWidth();
+        goToNearestLogical(logical, false);
+        setActiveCard(closestCard());
+      });
     });
   }
-
-  // --------------------------------
-  // Next button behaviour
-  // --------------------------------
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      const idx = getClosestCardIndex();
-      scrollToCard(Math.min(cards.length - 1, idx + 1));
-    });
-  }
-
-  const dotsWrap = document.getElementById("projectsDots");
-
-// Build dots
-if (dotsWrap) {
-  dotsWrap.innerHTML = ""; // reset if hot reload
-  cards.forEach((_, i) => {
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.className = "carousel-dot";
-    dot.setAttribute("aria-label", `Go to project ${i + 1}`);
-    dot.addEventListener("click", () => scrollToCard(i));
-    dotsWrap.appendChild(dot);
-  });
-}
-
-function setActiveDot(index) {
-  if (!dotsWrap) return;
-  const dots = Array.from(dotsWrap.querySelectorAll(".carousel-dot"));
-  dots.forEach((d) => d.classList.remove("is-active"));
-  if (dots[index]) dots[index].classList.add("is-active");
-}
-
-  // --------------------------------
-  // Keyboard navigation support
-  // --------------------------------
-  viewport.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      scrollToCard(Math.max(0, getClosestCardIndex() - 1));
-    }
-
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      scrollToCard(Math.min(cards.length - 1, getClosestCardIndex() + 1));
-    }
-  });
-
-  // --------------------------------
-  // Initial state + responsive recalculation
-  // --------------------------------
-  window.addEventListener("load", () => {
-    setActiveCard(getClosestCardIndex());
-  });
-
-  window.addEventListener("resize", () => {
-    const idx = getClosestCardIndex();
-    scrollToCard(idx);
-  });
 }
