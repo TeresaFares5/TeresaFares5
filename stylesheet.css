@@ -485,43 +485,30 @@ header .image img {
   transform: scale(1.05);
 }
 
-.contact-form {
-  display: grid;
-  gap: 1rem;
-  max-width: 520px;
+footer#about.container.section {
+  display: block;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
-.contact-form label {
-  display: grid;
-  gap: 0.5rem;
-  color: #fff;
-  font-size: 0.95rem;
+/* Contact card matches other cards */
+.contact-card {
+  width: min(900px, 100%);
+  margin: 3rem auto 0;
+
+  background-color: #27272a;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+
+  border: 2px solid transparent;
+  border-radius: 15px;
+
+  transition: all 0.3s ease;
 }
 
-.contact-form input,
-.contact-form textarea {
-  background: #27272a;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  padding: 0.85rem 1rem;
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
-  outline: none;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: #a201ff;
-}
-
-.contact-form textarea {
-  resize: vertical;
-  min-height: 130px;
-}
-
-.contact-form .btn {
-  width: fit-content;
-  border: none; 
+/* Hover = same vibe as skills/education cards */
+.contact-card:hover {
+  background-color: #323232;
+  border-color: #fff;
 }
 
 
@@ -549,31 +536,9 @@ header .image img {
     opacity: 1;
   }
 }
-
-footer#about.container {
-  display: flex;
-  justify-content: center;   
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
-/* Make the footer column a centered card */
-footer#about .column {
-  width: min(900px, 100%);   
-  background: #27272a;
-  border: 2px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
-  padding: clamp(1.25rem, 3vw, 2.25rem);
-}
-
-
-footer#about .column h4 {
-  color: #fff;
-  margin-bottom: 1.25rem;
-  font-size: 1.4rem;
-  font-weight: 600;
-  text-align: center;       
-}
+/* =====================
+   CONTACT FORM
+   ===================== */
 
 /* Make the form wider and centered */
 .contact-form {
@@ -749,10 +714,6 @@ footer#about .column h4 {
     bottom: -2px;
   }
 
-  footer#about .column {
-    border-radius: 14px;
-    padding: 1.25rem;
-  }
 
   .contact-form {
     max-width: 100%;
