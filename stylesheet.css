@@ -10,6 +10,15 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 /* Make images responsive by default */
 img {
   width: 100%;
