@@ -206,6 +206,49 @@ if (viewport && track) {
     }
 
     // ----------------------------
+// Active card tracking (mobile-proof) using IntersectionObserver
+// ----------------------------
+let io = null;
+
+function setupCenterObserver() {
+  if (!("IntersectionObserver" in window)) return;
+
+  // Kill any old observer
+  if (io) io.disconnect();
+
+  // A vertical "center band" in the viewport.
+  // Only the card intersecting this band becomes active.
+  io = new IntersectionObserver(
+    (entries) => {
+      // Pick the most-intersecting card inside the center band
+      let bestEl = null;
+      let bestRatio = 0;
+
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (e.intersectionRatio > bestRatio) {
+          bestRatio = e.intersectionRatio;
+          bestEl = e.target;
+        }
+      }
+
+      if (bestEl) setActiveCard(bestEl);
+    },
+    {
+      root: viewport,
+      // shrink the root so only the middle ~10% counts as "active zone"
+      rootMargin: "0px -45% 0px -45%",
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+    }
+  );
+
+  allCards.forEach((c) => io.observe(c));
+}
+
+setupCenterObserver();
+
+
+    // ----------------------------
     // Scroll to element centered
     // ----------------------------
     function scrollToEl(el, smooth) {
@@ -397,21 +440,58 @@ if (viewport && track) {
     // ----------------------------
     // Scroll handling (debounced end-of-scroll)
     // ----------------------------
-    viewport.addEventListener("scroll", () => {
-      if (isRecentering) return;
+    // ----------------------------
+// Scroll handling (mobile snap-safe)
+// ----------------------------
+let settleRAF = null;
+let stableFrames = 0;
+let lastLeft = viewport.scrollLeft;
 
-      clearTimeout(idleTimer);
+function settleAfterScroll() {
+  if (settleRAF) cancelAnimationFrame(settleRAF);
 
-      const currentLeft = viewport.scrollLeft;
-      const moved = Math.abs(currentLeft - lastScrollLeft) > 0.5;
-      lastScrollLeft = currentLeft;
+  stableFrames = 0;
+  lastLeft = viewport.scrollLeft;
 
-      idleTimer = setTimeout(() => {
-        const c = closestCard();
-        setActiveCard(c);
-        recenterIfNeededIdle();
-      }, moved ? 90 : 120);
-    });
+  const tick = () => {
+    const now = viewport.scrollLeft;
+
+    // tiny epsilon so we don't get stuck on sub-pixel changes
+    if (Math.abs(now - lastLeft) < 0.5) stableFrames++;
+    else stableFrames = 0;
+
+    lastLeft = now;
+
+    // Wait until it's been stable for a few frames (snap finished)
+    if (stableFrames >= 6) {
+      settleRAF = null;
+      const c = closestCard();
+      setActiveCard(c);
+      recenterIfNeededIdle();
+      return;
+    }
+
+    settleRAF = requestAnimationFrame(tick);
+  };
+
+  settleRAF = requestAnimationFrame(tick);
+}
+
+viewport.addEventListener("scroll", () => {
+  if (isRecentering) return;
+
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => {
+    // Don't call setActiveCard here anymore — observer does it
+    recenterIfNeededIdle();
+  }, 120);
+});
+
+
+// Also kick settle when the user finishes a gesture (helps iOS)
+viewport.addEventListener("touchend", settleAfterScroll, { passive: true });
+viewport.addEventListener("pointerup", settleAfterScroll, { passive: true });
+
 
     // ----------------------------
     // Controls
