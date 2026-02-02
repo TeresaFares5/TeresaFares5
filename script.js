@@ -72,8 +72,13 @@ backToTopBtn?.addEventListener("click", () => {
 });
 
 // ================================
-// Projects Carousel (Infinite Wheel - No Lag / No Auto Scroll)
+// Projects Carousel
 // ================================
+
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
 const viewport = document.getElementById("projectsViewport");
 const track = document.getElementById("projectsTrack");
 
@@ -365,19 +370,29 @@ if (viewport && track) {
     buildDots();
 
     // Start on the "middle" set so user can go both ways
-    requestAnimationFrame(() => {
-      // move into the safe middle band
-      viewport.scrollLeft += oneSetWidth();
+  // Start on the "middle" set so user can go both ways
+requestAnimationFrame(() => {
+  // IMPORTANT: hard reset first (beats scroll restoration + cached positions)
+  viewport.style.scrollBehavior = "auto";
+  viewport.scrollLeft = 0;
 
-      // center logical 0 instantly
-      goToNearestLogical(0, false);
+  // jump into the safe middle band (exact, not +=)
+  viewport.scrollLeft = oneSetWidth();
 
-      // wait ONE more frame so layout + scroll settle
-      requestAnimationFrame(() => {
-        const c = closestCard();
-        setActiveCard(c);
-      });
-    });
+  // center logical 0 instantly
+  goToNearestLogical(0, false);
+
+  // lock dot/card state to 0
+  setActiveDot(0);
+  const first = allCards.find(c => (parseInt(c.dataset.index, 10) || 0) === 0);
+  if (first) setActiveCard(first);
+
+  // one more frame to ensure transforms/classes are correct after layout
+  requestAnimationFrame(() => {
+    recenterNow();
+    setActiveCard(closestCard());
+  });
+});
 
     // ----------------------------
     // Scroll handling (debounced end-of-scroll)
