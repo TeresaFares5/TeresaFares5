@@ -370,29 +370,29 @@ if (viewport && track) {
     buildDots();
 
     // Start on the "middle" set so user can go both ways
-  // Start on the "middle" set so user can go both ways
-requestAnimationFrame(() => {
-  // IMPORTANT: hard reset first (beats scroll restoration + cached positions)
-  viewport.style.scrollBehavior = "auto";
-  viewport.scrollLeft = 0;
+    // Start on the "middle" set so user can go both ways
+    requestAnimationFrame(() => {
+      // IMPORTANT: hard reset first (beats scroll restoration + cached positions)
+      viewport.style.scrollBehavior = "auto";
+      viewport.scrollLeft = 0;
 
-  // jump into the safe middle band (exact, not +=)
-  viewport.scrollLeft = oneSetWidth();
+      // jump into the safe middle band (exact, not +=)
+      viewport.scrollLeft = oneSetWidth();
 
-  // center logical 0 instantly
-  goToNearestLogical(0, false);
+      // center logical 0 instantly
+      goToNearestLogical(0, false);
 
-  // lock dot/card state to 0
-  setActiveDot(0);
-  const first = allCards.find(c => (parseInt(c.dataset.index, 10) || 0) === 0);
-  if (first) setActiveCard(first);
+      // lock dot/card state to 0
+      setActiveDot(0);
+      const first = allCards.find(c => (parseInt(c.dataset.index, 10) || 0) === 0);
+      if (first) setActiveCard(first);
 
-  // one more frame to ensure transforms/classes are correct after layout
-  requestAnimationFrame(() => {
-    recenterNow();
-    setActiveCard(closestCard());
-  });
-});
+      // one more frame to ensure transforms/classes are correct after layout
+      requestAnimationFrame(() => {
+        recenterNow();
+        setActiveCard(closestCard());
+      });
+    });
 
     // ----------------------------
     // Scroll handling (debounced end-of-scroll)
