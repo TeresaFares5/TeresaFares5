@@ -541,14 +541,16 @@ footer .column a:hover {
 }
 
 /* Copyright bar */
-/* .copyright {
+.copyright {
   max-width: 1200px;
   margin: auto;
   padding: 1rem;
   color: #fff;
-  font-size: 0.8rem;
+  font-size: 1rem;         
+  opacity: 0.6;             
+  transform: scale(0.85);   
   text-align: center;
-} */
+}
 
 /* =====================
    BACK TO TOP BUTTON
