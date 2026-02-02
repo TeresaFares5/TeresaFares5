@@ -37,14 +37,8 @@ nav {
   padding: 2rem 1rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 2rem;
-}
-
-/* Default list spacing + text colour */
-ul {
-  padding-left: 2rem;
-  color: #ccc;
 }
 
 /* Logo size constraint */
@@ -52,13 +46,39 @@ ul {
   max-width: 100px;
 }
 
-/* Navigation links container */
+/* Desktop nav links */
 .nav-links {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 3rem;
+  padding-left: 0; /* override your global ul padding */
 }
+
+.nav-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: rgba(39, 39, 42, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  cursor: pointer;
+  place-items: center;
+}
+
+.nav-toggle i {
+  font-size: 1.6rem;
+}
+
+
+/* Default list spacing + text colour */
+ul {
+  padding-left: 2rem;
+  color: #ccc;
+}
+
+
 
 /* Individual nav links */
 .link a {
@@ -564,7 +584,75 @@ footer .column a:hover {
   .skills { grid-template-columns: repeat(2, 1fr); }
   .education { grid-template-columns: 1fr; }
 
-  footer { grid-template-columns: 1fr 200px; }
+  
+  /* Hamburger button (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: rgba(39, 39, 42, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  cursor: pointer;
+  place-items: center;
+}
+
+.nav-toggle i {
+  font-size: 1.6rem;
+}
+
+/* Mobile nav dropdown */
+@media (width < 900px) {
+ nav {
+    position: relative;
+    justify-content: space-between;
+  }
+
+  /* show hamburger */
+  .nav-toggle {
+    display: grid;
+  }
+
+  /* make UL a dropdown panel */
+  .nav-links {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    top: calc(100% + 12px);
+
+    display: grid;
+    gap: 0.75rem;
+
+    padding: 1rem;
+    margin: 0;
+
+    background: rgba(39, 39, 42, 0.98);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+
+    /* closed state */
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+
+    transition: opacity 180ms ease, transform 180ms ease;
+    z-index: 999;
+  }
+
+  /* open state */
+  .nav-links.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* optional: stop underline from looking weird stacked */
+  .link a::after {
+    bottom: -2px;
+  }
+}
+
 }
 
 @media (width < 600px) {

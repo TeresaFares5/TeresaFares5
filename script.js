@@ -1,3 +1,46 @@
+/// ================================
+// Mobile hamburger nav
+// ================================
+const navToggle = document.getElementById("navToggle");
+const navLinks = document.getElementById("navLinks");
+
+function closeMobileNav() {
+  if (!navLinks || !navToggle) return;
+
+  navLinks.classList.remove("is-open");
+  navToggle.setAttribute("aria-expanded", "false");
+
+  const icon = navToggle.querySelector("i");
+  if (icon) icon.className = "ri-menu-line";
+}
+
+navToggle?.addEventListener("click", () => {
+  if (!navLinks) return;
+
+  const isOpen = navLinks.classList.toggle("is-open");
+  navToggle.setAttribute("aria-expanded", String(isOpen));
+
+  const icon = navToggle.querySelector("i");
+  if (icon) icon.className = isOpen ? "ri-close-line" : "ri-menu-line";
+});
+
+// Close menu when a nav link is clicked
+navLinks?.querySelectorAll('a[href^="#"]').forEach((a) => {
+  a.addEventListener("click", () => closeMobileNav());
+});
+
+// Close if you click/tap outside
+document.addEventListener("click", (e) => {
+  if (!navLinks || !navToggle) return;
+  const clickedInside = navLinks.contains(e.target) || navToggle.contains(e.target);
+  if (!clickedInside) closeMobileNav();
+});
+
+// Close on Escape
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeMobileNav();
+});
+
 // ================================
 // Smooth scroll for in-page anchors (nav links)
 // ================================

@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="stylesheet.css" />
 
   <!-- Browser tab icon -->
-  <link rel="icon" type="image/x-icon" href="images/logo.png" />
+  <link rel="icon" type="image/x-icon" href="images/pfp-modified.png" />
 
   <!-- Page title (tab text) -->
   <title>Teresa Fares</title>
@@ -25,27 +25,30 @@
 
   <!-- Top navigation bar -->
   <nav>
-    <!-- Logo area: clicking returns to the home/hero section -->
-    <div class="nav-logo">
-      <a href="#home">
-        <img src="images/logo.png" alt="Logo" />
-      </a>
-    </div>
-
-    <!-- Navigation links (anchor to page sections) -->
-    <ul class="nav-links">
-      <li class="link"><a href="#home">Home</a></li>
-      <li class="link"><a href="#skills">Skills</a></li>
-      <li class="link"><a href="#education">Education</a></li>
-      <li class="link"><a href="#projects">Projects</a></li>
-    </ul>
-
-    <!-- Call-to-action button:
-         Opens user's email client with pre-filled subject/body -->
-    <a
-      href="mailto:teresafares@hotmail.com?subject=Job Inquiry&body=Hello, I am interested in discussing job opportunities.">
-      <button class="btn">Hire Me</button>
+  <!-- <div class="nav-logo">
+    <a href="#home">
+      <img src="images/logo.png" alt="Logo" />
     </a>
+  </div> -->
+
+  <ul class="nav-links" id="navLinks">
+    <!-- <li class="link"><a href="#home">Home</a></li> -->
+    <li class="link"><a href="#skills">Skills</a></li>
+    <li class="link"><a href="#education">Education</a></li>
+    <li class="link"><a href="#projects">Projects</a></li>
+    <li class="link"><a href="#about">Contact</a></li>
+  </ul>
+
+  <button
+    class="nav-toggle"
+    id="navToggle"
+    type="button"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="navLinks"
+  >
+    <i class="ri-menu-line"></i>
+  </button>
   </nav>
 
   <!-- Hero / Intro section -->
