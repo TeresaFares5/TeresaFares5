@@ -577,3 +577,26 @@ contactForm?.addEventListener("submit", async (e) => {
     }
   }
 });
+
+// ================================
+// Contact form – 200 word limit
+// ================================
+
+const textarea = document.querySelector('textarea[name="message"]');
+const wordCount = document.getElementById('wordCount');
+const MAX_WORDS = 200;
+
+if (textarea && wordCount) {
+  textarea.addEventListener('input', () => {
+    const words = textarea.value
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+
+    if (words.length > MAX_WORDS) {
+      textarea.value = words.slice(0, MAX_WORDS).join(' ');
+    }
+
+    wordCount.textContent = `${words.length} / ${MAX_WORDS} words`;
+  });
+}
