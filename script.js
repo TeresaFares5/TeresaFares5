@@ -581,22 +581,46 @@ contactForm?.addEventListener("submit", async (e) => {
 // ================================
 // Contact form – 200 word limit
 // ================================
+document.addEventListener("DOMContentLoaded", () => {
+  const textarea = document.querySelector('textarea[name="message"]');
+  const wordCount = document.getElementById("wordCount");
+  const form = document.getElementById("contactForm");
+  const sendBtn = form ? form.querySelector('button[type="submit"]') : null;
 
-const textarea = document.querySelector('textarea[name="message"]');
-const wordCount = document.getElementById('wordCount');
-const MAX_WORDS = 200;
+  const MAX_WORDS = 200;
+  const WARN_AT = 180; // start animating near limit
 
-if (textarea && wordCount) {
-  textarea.addEventListener('input', () => {
-    const words = textarea.value
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean);
+  if (!textarea || !wordCount || !sendBtn) return;
 
-    if (words.length > MAX_WORDS) {
-      textarea.value = words.slice(0, MAX_WORDS).join(' ');
+  const countWords = (text) =>
+    text.trim().split(/\s+/).filter(Boolean).length;
+
+  const clampToMaxWords = (text) => {
+    const words = text.trim().split(/\s+/).filter(Boolean);
+    if (words.length <= MAX_WORDS) return text;
+    return words.slice(0, MAX_WORDS).join(" ");
+  };
+
+  const updateUI = () => {
+    // If pasted too much, clamp it
+    const clamped = clampToMaxWords(textarea.value);
+    if (clamped !== textarea.value.trim()) {
+      textarea.value = clamped;
     }
 
-    wordCount.textContent = `${words.length} / ${MAX_WORDS} words`;
-  });
-}
+    const wordsNow = textarea.value.trim() ? countWords(textarea.value) : 0;
+
+    // Update counter text (FIXED: backticks)
+    wordCount.textContent = `${wordsNow} / ${MAX_WORDS} words`;
+
+    // Animate near limit
+    wordCount.classList.toggle("near-limit", wordsNow >= WARN_AT && wordsNow < MAX_WORDS);
+    wordCount.classList.toggle("at-limit", wordsNow >= MAX_WORDS);
+
+    // Disable Send at limit
+    sendBtn.disabled = wordsNow >= MAX_WORDS;
+  };
+
+  textarea.addEventListener("input", updateUI);
+  updateUI(); // set correct state on load
+});
