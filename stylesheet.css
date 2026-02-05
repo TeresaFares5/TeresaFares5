@@ -220,7 +220,8 @@ header .image img {
    ===================== */
 
 .section-title {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  margin-top: 1rem;
   color: #fff;
   text-align: center;
   font-size: 2.25rem;
@@ -230,6 +231,8 @@ header .image img {
 /* Section subtitle text */
 .sub-header {
   max-width: 600px;
+   margin-top: 0;
+  margin-bottom: 1.5rem;
   margin: auto;
   text-align: center;
   color: #ccc;
