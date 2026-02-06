@@ -107,10 +107,10 @@ function initProjectsCarousel() {
 
   // Clean up previous init (important when filtering rebuilds)
   if (ProjectsCarouselState.cleanup) {
-    try { ProjectsCarouselState.cleanup(); } catch {}
+    try { ProjectsCarouselState.cleanup(); } catch { }
   }
   if (ProjectsCarouselState.io) {
-    try { ProjectsCarouselState.io.disconnect(); } catch {}
+    try { ProjectsCarouselState.io.disconnect(); } catch { }
     ProjectsCarouselState.io = null;
   }
   if (ProjectsCarouselState.settleRAF) {
@@ -250,7 +250,7 @@ function initProjectsCarousel() {
     if (!("IntersectionObserver" in window)) return;
 
     if (ProjectsCarouselState.io) {
-      try { ProjectsCarouselState.io.disconnect(); } catch {}
+      try { ProjectsCarouselState.io.disconnect(); } catch { }
     }
 
     const io = new IntersectionObserver(
@@ -534,7 +534,7 @@ function initProjectsCarousel() {
   ProjectsCarouselState.cleanup = () => {
     // Disconnect observer
     if (ProjectsCarouselState.io) {
-      try { ProjectsCarouselState.io.disconnect(); } catch {}
+      try { ProjectsCarouselState.io.disconnect(); } catch { }
       ProjectsCarouselState.io = null;
     }
 
@@ -550,7 +550,7 @@ function initProjectsCarousel() {
 
     // Remove listeners
     unsubs.forEach((fn) => {
-      try { fn(); } catch {}
+      try { fn(); } catch { }
     });
   };
 
@@ -587,7 +587,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function rebuildTrack(filterKey) {
     // Stop current carousel listeners/observer cleanly
     if (ProjectsCarouselState.cleanup) {
-      try { ProjectsCarouselState.cleanup(); } catch {}
+      try { ProjectsCarouselState.cleanup(); } catch { }
     }
     ProjectsCarouselState.cleanup = null;
 
@@ -598,9 +598,9 @@ document.addEventListener("DOMContentLoaded", () => {
       filterKey === "all"
         ? ORIGINAL_CARDS
         : ORIGINAL_CARDS.filter((card) => {
-            const tags = normalizeTags(card.getAttribute("data-tags"));
-            return tags.includes(filterKey);
-          });
+          const tags = normalizeTags(card.getAttribute("data-tags"));
+          return tags.includes(filterKey);
+        });
 
     // Put matching cards back (fresh nodes)
     nextCards.forEach((c) => track.appendChild(c.cloneNode(true)));
@@ -628,6 +628,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initProjectsCarousel();
   }
 });
+
 
 // ================================
 // Contact form (Formspree) -> redirect to custom thanks page
@@ -724,3 +725,100 @@ document.addEventListener("DOMContentLoaded", () => {
   textarea.addEventListener("input", updateUI);
   updateUI();
 });
+// ================================
+// Project Lightbox Modal
+// ================================
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("projectModal");
+  const modalContent = document.getElementById("projectModalContent");
+  const track = document.getElementById("projectsTrack");
+
+  if (!modal || !modalContent || !track) return;
+
+  let lastFocusedEl = null;
+
+  const openModal = (card) => {
+    if (!card) return;
+
+    lastFocusedEl = document.activeElement;
+
+    // Pull content from the clicked card
+    const h4 = card.querySelector("h4")?.outerHTML || "";
+    const h3 = card.querySelector("h3")?.outerHTML || "";
+
+    // Bullet points = all <p> that are NOT inside .project-details
+    const bulletPs = Array.from(card.querySelectorAll(".content > p"));
+    const bulletsHtml = bulletPs.length
+      ? `<div class="bullets">${bulletPs.map((p) => p.outerHTML).join("")}</div>`
+      : "";
+
+    // Tech stack + long desc (you added this)
+    const details = card.querySelector(".project-details");
+    const detailsHtml = details ? details.innerHTML : "";
+
+    // Actions: clone buttons (keep your existing onclick window.open)
+    const btns = Array.from(card.querySelectorAll(".content > button.btn"));
+    const actionsHtml = btns.length
+      ? `<div class="project-modal__actions">${btns
+          .map((b) => b.outerHTML)
+          .join("")}</div>`
+      : "";
+
+    modalContent.innerHTML = `
+      ${h4}
+      ${h3}
+      ${bulletsHtml}
+      ${detailsHtml}
+      ${actionsHtml}
+    `;
+
+    document.body.classList.add("modal-open");
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+
+    // focus close button for keyboard users
+    const closeBtn = modal.querySelector('[data-close="true"]');
+    closeBtn?.focus();
+  };
+
+  const closeModal = () => {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+
+    // Clear content so it doesn't keep old button handlers around
+    modalContent.innerHTML = "";
+
+    // Restore focus
+    if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
+      lastFocusedEl.focus();
+    }
+    lastFocusedEl = null;
+  };
+
+  // Open when clicking on a card (but not when clicking buttons/links)
+  track.addEventListener("click", (e) => {
+    const interactive = e.target.closest("button, a, input, textarea, select, label");
+    if (interactive) return;
+
+    const card = e.target.closest(".carousel-card");
+    if (!card) return;
+
+    openModal(card);
+  });
+
+  // Close on overlay/close button
+  modal.addEventListener("click", (e) => {
+    const shouldClose = e.target.closest('[data-close="true"]');
+    if (shouldClose) closeModal();
+  });
+
+  // ESC closes
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) {
+      closeModal();
+    }
+  });
+});
+
+

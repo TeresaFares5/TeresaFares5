@@ -84,12 +84,12 @@
   <section class="container section" id="skills">
     <h2 class="section-title">MY SKILLS</h2>
 
-     <p class="sub-header">
-        Core areas I focus on in my professional and personal projects.
-      </p>
+    <p class="sub-header">
+      Core areas I focus on in my professional and personal projects.
+    </p>
     <!-- Skills cards -->
     <div class="skills">
-     
+
       <div class="card">
         <h4>Programming & Infrastructure Automation</h4>
         <p>
@@ -117,12 +117,12 @@
   <section class="container section" id="education">
     <h2 class="section-title">MY EDUCATION</h2>
     <p class="sub-header">
-        Industry-aligned education with a strong emphasis on practical IT skills.
-      </p>
+      Industry-aligned education with a strong emphasis on practical IT skills.
+    </p>
 
     <!-- Education cards (each has a title + bullet list) -->
     <div class="education">
-      
+
 
       <div class="card">
         <h4>Certificate IV in Information and Communications Technology -<br>TAFE</h4>
@@ -211,6 +211,29 @@
               <p><i class="ri-checkbox-circle-line"></i> Secure, config-driven architecture</p>
               <p><i class="ri-checkbox-circle-line"></i> Demo mode for safe testing without live systems</p>
 
+              <div class="project-details" aria-hidden="true">
+                <div class="stack">
+                  <span class="badge">PowerShell</span>
+                  <span class="badge">WinForms GUI</span>
+                  <span class="badge">Active Directory</span>
+                  <span class="badge">Microsoft 365</span>
+                  <span class="badge">Exchange Online</span>
+                  <span class="badge">RBAC</span>
+                  <span class="badge">Logging</span>
+                </div>
+
+                <p class="long-desc">
+                  Designed and built a GUI-driven onboarding tool to standardise user provisioning across Active
+                  Directory and
+                  Microsoft 365. The solution replaces manual Service Desk processes with a secure, config-driven
+                  workflow that
+                  assigns licenses, groups, and mail settings based on role selection. Includes a demo mode for safe
+                  testing,
+                  input validation to prevent misconfiguration, and structured logging to support auditing and
+                  troubleshooting
+                  in enterprise environments.
+                </p>
+              </div>
               <!-- Opens GitHub repo in new window/tab -->
               <button class="btn" onclick="window.open('https://github.com/TeresaFares5/Onboarding-GUI-PowerShell')">
                 View on GitHub
@@ -218,7 +241,7 @@
             </div>
           </article>
 
-           <!-- Project: Monthly EXO Delegates Report -->
+          <!-- Project: Monthly EXO Delegates Report -->
           <article class="carousel-card" data-tags="automation powershell infrastructure">
             <div class="content">
               <h4>Microsoft 365 / PowerShell</h4>
@@ -234,6 +257,29 @@
               <p><i class="ri-checkbox-circle-line"></i> Generates HTML email reports and optional CSV exports with safe
                 cleanup</p>
 
+              <div class="project-details" aria-hidden="true">
+                <div class="stack">
+                  <span class="badge">PowerShell</span>
+                  <span class="badge">Exchange Online</span>
+                  <span class="badge">App-Only Auth</span>
+                  <span class="badge">HTML Reporting</span>
+                  <span class="badge">CSV Export</span>
+                  <span class="badge">Task Scheduler</span>
+                  <span class="badge">Logging</span>
+                </div>
+
+                <p class="long-desc">
+                  Built a production-ready PowerShell automation that audits Exchange Online objects to identify unused,
+                  misconfigured, or potentially risky mail setups. The script applies business-rule filtering to flag
+                  redirect
+                  groups and mailboxes with missing delegates, invalid memberships, or age-related risks. Generates
+                  clean HTML
+                  email reports for stakeholders, optional CSV exports for analysis, and supports both interactive and
+                  app-only
+                  authentication with full logging and dry-run capability.
+                </p>
+              </div>
+
               <!-- GitHub repo link -->
               <button class="btn"
                 onclick="window.open('https://github.com/TeresaFares5/Monthly-EXO-Delegates-Report/tree/main')">
@@ -242,7 +288,7 @@
             </div>
           </article>
 
-             <!-- Komga -->
+          <!-- Komga -->
           <article class="carousel-card" data-tags="infrastructure automation">
             <div class="content">
               <h4>Infrastructure / Linux</h4>
@@ -254,6 +300,29 @@
               <p><i class="ri-checkbox-circle-line"></i> Mylar Automation & Metadata Management</p>
               <p><i class="ri-checkbox-circle-line"></i> Service Configuration & Troubleshooting</p>
 
+
+              <div class="project-details" aria-hidden="true">
+                <div class="stack">
+                  <span class="badge">Linux</span>
+                  <span class="badge">Self-Hosting</span>
+                  <span class="badge">Komga</span>
+                  <span class="badge">Lazy Librarian</span>
+                  <span class="badge">qBittorrent</span>
+                  <span class="badge">Prowlarr</span>
+                  <span class="badge">Mylar</span>
+                </div>
+
+                <p class="long-desc">
+                  Deployed and managed a self-hosted media automation stack on Linux, integrating Komga and Lazy
+                  Librarian with
+                  qBittorrent, Prowlarr, and Mylar for end-to-end content acquisition and metadata management. Focused
+                  on service
+                  reliability, clean configuration, and troubleshooting of interdependent services. This project
+                  demonstrates
+                  hands-on infrastructure management, automation workflows, and real-world Linux administration
+                  practices.
+                </p>
+              </div>
               <!-- GitHub repo link -->
               <button class="btn" onclick="window.open('https://github.com/TeresaFares5/HomeLab/tree/main')">
                 View on GitHub
@@ -279,6 +348,31 @@
               <p><i class="ri-checkbox-circle-line"></i> Detailed Logging & Safe Testing Practices</p>
               <p><i class="ri-checkbox-circle-line"></i> Enterprise-Aligned Security Baseline Implementation</p>
 
+              <div class="project-details" aria-hidden="true">
+                <div class="stack">
+                  <span class="badge">PowerShell</span>
+                  <span class="badge">Windows Security</span>
+                  <span class="badge">Defender</span>
+                  <span class="badge">SMB Hardening</span>
+                  <span class="badge">Audit Policy</span>
+                  <span class="badge">Rollback</span>
+                  <span class="badge">Logging</span>
+                </div>
+
+                <p class="long-desc">
+                  Developed a modular PowerShell toolkit to audit, enforce, and roll back Windows security
+                  configurations in a
+                  controlled and repeatable way. The toolkit applies enterprise-aligned security baselines including
+                  SMBv1
+                  hardening, local password policy enforcement, Defender configuration, and audit policy management.
+                  Designed
+                  with safety in mind, featuring clear logging, validation, and rollback support to reduce risk during
+                  testing
+                  and deployment.
+                </p>
+              </div>
+
+
               <!-- Opens GitHub repo -->
               <button class="btn" onclick="window.open('https://github.com/TeresaFares5/Windows-Security-Hardening')">
                 View on GitHub
@@ -300,6 +394,28 @@
               <p><i class="ri-checkbox-circle-line"></i> Demonstrates OS-level keylogging mitigations</p>
               <p><i class="ri-checkbox-circle-line"></i> No network access or data exfiltration</p>
 
+              <div class="project-details" aria-hidden="true">
+                <div class="stack">
+                  <span class="badge">Python</span>
+                  <span class="badge">Defensive Security</span>
+                  <span class="badge">Encryption</span>
+                  <span class="badge">Fernet / AES</span>
+                  <span class="badge">WSL</span>
+                  <span class="badge">Secure Controls</span>
+                </div>
+
+                <p class="long-desc">
+                  An educational, defensive security project designed to demonstrate how keylogging works and how it can
+                  be
+                  mitigated. Implemented encrypted keystroke storage using Fernet/AES, explicit start and stop controls,
+                  and
+                  WSL-compatible input handling without global capture. The project intentionally avoids stealth
+                  behaviour,
+                  persistence, or data exfiltration, focusing instead on secure design principles and user transparency.
+                </p>
+              </div>
+
+
               <!-- GitHub repo link -->
               <button class="btn" onclick="window.open('https://github.com/TeresaFares5/Keylogger')">
                 View on GitHub
@@ -307,7 +423,7 @@
             </div>
           </article>
 
-         
+
 
           <!-- FEAR FLASH -->
           <article class="carousel-card" data-tags="games">
@@ -324,6 +440,28 @@
               </p>
               <p><i class="ri-checkbox-circle-line"></i> Performance optimisation and bug fixing across multiple levels
               </p>
+
+              <div class="project-details" aria-hidden="true">
+                <div class="stack">
+                  <span class="badge">Unity</span>
+                  <span class="badge">C#</span>
+                  <span class="badge">AI Behaviour</span>
+                  <span class="badge">State Machines</span>
+                  <span class="badge">3D Gameplay</span>
+                  <span class="badge">Optimisation</span>
+                </div>
+
+                <p class="long-desc">
+                  Served as Lead Programmer on a 3D psychological horror game focused on tension, atmosphere, and
+                  player-driven
+                  fear. Implemented core gameplay systems centred around camera mechanics, enemy AI that dynamically
+                  stalks and
+                  reacts to player behaviour, and scripted narrative progression across multiple levels. Also
+                  responsible for
+                  performance optimisation, debugging, and stabilisation to ensure consistent gameplay experience.
+                </p>
+              </div>
+
 
               <!-- build link -->
               <button class="btn" onclick="window.open('https://shado-5.itch.io/fear-flash')">
@@ -347,6 +485,29 @@
               <p><i class="ri-checkbox-circle-line"></i> Upgrade system rewarding repeated runs and skill mastery</p>
               <p><i class="ri-checkbox-circle-line"></i> Global leaderboard tracking player performance and survival
                 time</p>
+
+
+              <div class="project-details" aria-hidden="true">
+                <div class="stack">
+                  <span class="badge">Unity</span>
+                  <span class="badge">C#</span>
+                  <span class="badge">2D Gameplay</span>
+                  <span class="badge">Enemy Scaling</span>
+                  <span class="badge">Upgrade Systems</span>
+                  <span class="badge">Leaderboards</span>
+                </div>
+
+                <p class="long-desc">
+                  Developed a fast-paced 2D action survival game featuring slash-and-dash combat, playable villain
+                  characters,
+                  and progression-based upgrades. Implemented scalable enemy difficulty, stat-based character
+                  progression, and
+                  a global leaderboard system to track player performance and survival time. The project focuses on
+                  replayability,
+                  responsive controls, and balancing challenge through iterative tuning.
+                </p>
+              </div>
+
 
               <!-- build link -->
               <button class="btn" onclick="window.open('https://shado-5.itch.io/villains-valor')">
@@ -385,7 +546,7 @@
 
         <label>
           Message
-          <textarea name="message" rows="6" placeholder="Up to 200 words…" required required></textarea>
+          <textarea name="message" rows="6" placeholder="Up to 200 words…" required></textarea>
           <small id="wordCount" style="color:#ccc; text-align:right; display:block;">
             0 / 200 words
           </small>
@@ -411,6 +572,20 @@
 
   <!-- JS -->
   <script src="script.js"></script>
+
+  <!-- Project Lightbox / Modal -->
+  <div class="project-modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="project-modal__overlay" data-close="true"></div>
+
+    <div class="project-modal__panel" role="document" aria-label="Project details">
+      <button class="project-modal__close" type="button" aria-label="Close project details" data-close="true">
+        <i class="ri-close-line"></i>
+      </button>
+
+      <div class="project-modal__content" id="projectModalContent"></div>
+    </div>
+  </div>
+
 </body>
 
 </html>
