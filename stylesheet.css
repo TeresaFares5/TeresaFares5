@@ -182,7 +182,7 @@ header .content p {
   height: 50px;
   width: auto;
   object-fit: contain;
-  transition: filter 0.3s ease-in-out;
+  transition: filter 0.2s ease-in-out;
 }
 
 .social-icon:hover{
