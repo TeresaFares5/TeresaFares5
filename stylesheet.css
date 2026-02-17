@@ -186,7 +186,7 @@ header .content p {
 }
 
 .social-icon:hover{
-  filter: brightness(60%);
+  filter: brightness(40%);
 }
 
 /* Extra spacing below hero image */
