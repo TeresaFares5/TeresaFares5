@@ -182,6 +182,11 @@ header .content p {
   height: 50px;
   width: auto;
   object-fit: contain;
+  transition: filter 0.2s ease-in-out;
+}
+
+.social-icon:hover{
+  filter: brightness(40%);
 }
 
 /* Extra spacing below hero image */
