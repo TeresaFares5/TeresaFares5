@@ -1,16 +1,20 @@
-## Hi there 👋
+# Hi, I’m Teresa
 
-<!--
-**TeresaFares5/TeresaFares5** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+IT professional with experience in systems support, infrastructure, and programming. I focus on building practical solutions, automating workflows, and maintaining reliable IT environments.
 
-Here are some ideas to get you started:
+## Skills
+- Programming: C#, JavaScript, PowerShell, HTML, CSS  
+- IT & Systems: Windows, Linux, Active Directory, Microsoft 365, ITIL  
+- Infrastructure: Self-hosted services, automation, system integration  
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## Projects
+- Self-hosted HomeLab server with integrated automation tools
+- Cybersecurity projects utilising python and powershell
+- Web and scripting projects focused on practical problem-solving  
+- Unity-based projects demonstrating programming fundamentals  
+
+## Education
+- Cert IV & Cert III in Information and Communications Technology (TAFE)  
+- Bachelor of Games Development (SAE University College)
+
+Portfolio: https://teresafares.com/
