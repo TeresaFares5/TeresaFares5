@@ -8,6 +8,7 @@ IT professional with experience in systems support, infrastructure, and programm
 - Infrastructure: Self-hosted services, automation, system integration  
 
 ## Projects
+- A Power Automate Desktop workflow for extracting telecom invoice charges and allocating them using Excel master data.
 - Self-hosted HomeLab server with integrated automation tools
 - Cybersecurity projects utilising python and powershell
 - Web and scripting projects focused on practical problem-solving  
