@@ -1,7 +1,7 @@
 <h1 align="center">Hi, I'm Teresa</h1>
 <h3 align="center">IT professional with experience in systems support, infrastructure, Microsoft 365, and automation. I enjoy building practical solutions that simplify IT operations and improve the user experience.</h3>
 
-- 🔭 I’m currently working on [Power Automate Workflow Automation](https://github.com/TeresaFares5/power-automate-telecom-invoice-allocation)
+- 🔭 I recently built [Power Automate Workflow Automation](https://github.com/TeresaFares5/power-automate-telecom-invoice-allocation)
 
 - 🌱 I’m currently completing **A Certificate IV in Information and Communications Technology**
 
