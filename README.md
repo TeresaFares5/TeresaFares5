@@ -1,21 +1,24 @@
-# Hi, I’m Teresa
+<h1 align="center">Hi, I'm Teresa</h1>
+<h3 align="center">IT professional with experience in systems support, infrastructure, Microsoft 365, and automation. I enjoy building practical solutions that simplify IT operations and improve the user experience.</h3>
 
-IT professional with experience in systems support, infrastructure, and programming. I focus on building practical solutions, automating workflows, and maintaining reliable IT environments.
+- 🔭 I’m currently working on [Power Automate Workflow Automation](https://github.com/TeresaFares5/power-automate-telecom-invoice-allocation)
 
-## Skills
-- Programming: C#, JavaScript, PowerShell, HTML, CSS  
-- IT & Systems: Windows, Linux, Active Directory, Microsoft 365, ITIL  
-- Infrastructure: Self-hosted services, automation, system integration  
+- 🌱 I’m currently completing **A Certificate IV in Information and Communications Technology**
 
-## Projects
-- A Power Automate Desktop workflow for extracting telecom invoice charges and allocating them using Excel master data.
-- Self-hosted HomeLab server with integrated automation tools
-- Cybersecurity projects utilising python and powershell
-- Web and scripting projects focused on practical problem-solving  
-- Unity-based projects demonstrating programming fundamentals  
+- 👨‍💻 All of my projects are available at [https://teresafares.com/](https://teresafares.com/)
 
-## Education
-- Cert IV & Cert III in Information and Communications Technology (TAFE)  
-- Bachelor of Games Development (SAE University College)
+- 💬 Ask me about **Windows, Linux, Active Directory, Microsoft 365, PowerShell, Power Automate, Home Labs, Networking, IT Support, and Automation**
 
-Portfolio: https://teresafares.com/
+- 📫 How to reach me **teresafares@hotmail.com**
+
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+<a href="https://linkedin.com/in/teresa-fares" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="teresa-fares" height="30" width="40" /></a>
+</p>
+
+<h3 align="left">Languages and Tools:</h3>
+<p align="left"> <a href="https://developer.android.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/android/android-original-wordmark.svg" alt="android" width="40" height="40"/> </a> <a href="https://azure.microsoft.com/en-in/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/microsoft_azure/microsoft_azure-icon.svg" alt="azure" width="40" height="40"/> </a> <a href="https://www.gnu.org/software/bash/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/gnu_bash/gnu_bash-icon.svg" alt="bash" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cs/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="40" height="40"/> </a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://unity.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/unity3d/unity3d-icon.svg" alt="unity" width="40" height="40"/> </a> </p>
+
+<p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=teresafares5&show_icons=true&locale=en&layout=compact" alt="teresafares5" /></p>
+
+<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=teresafares5&" alt="teresafares5" /></p>
